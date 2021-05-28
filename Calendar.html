@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .life {
+                display: flex;
+                flex-wrap: wrap;
+                width: 1005px;
+            }
+
+            .lifeday{
+                width: 8px;
+                height: 8px;
+                border: 1px solid darkgreen;
+            }
+
+            .lifeday.gone{
+                border: 1px solid gray;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="life">
+
+        </div>
+
+        <script>
+            let birth = new Date('1992-04-30 08:00');
+            let centuryBirth = new Date('2092-04-30 08:00');
+            
+            let lifespam = centuryBirth.getTime() - birth.getTime();
+            let daysToLive = lifespam / 1000 / 60 / 60 / 24;
+            
+            let lifeday = new Date(birth.getTime())
+            
+            let life = [];
+            for (let i = 0; i < daysToLive; i++) {
+               lifeday = new Date(birth.getTime())
+               lifeday.setDate(birth.getDate() + i)
+
+               life.push(lifeday)
+            }
+
+            // console.log(life)
+            
+            today = new Date()
+            counter = 0;
+            limiter = 7;
+
+            document.querySelector('.life').innerHTML = life.map((day) => {
+                counter++;
+
+                if (counter >= limiter) {
+                    counter = 0;
+                    if (day < today) {
+                        return `<div class="lifeday gone"></div>`
+                    }
+                    return `<div class="lifeday"></div>`
+                }
+
+                return ''
+            }).join('')
+        </script>
+    </body>
+</html>
